@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+scikit-learn = "*"
+joblib = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.13"
+python_full_version = "3.13.0"
+
+[scripts]
+start-learning-model-svm = "python main_svm.py"
+start-learning-model-naive-bayes = "python main_naive_bayes.py"
+start = "python main.py"
