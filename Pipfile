@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 scikit-learn = "*"
 joblib = "*"
+pymongo = "*"
 
 [dev-packages]
 

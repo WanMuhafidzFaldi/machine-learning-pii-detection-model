@@ -11,7 +11,7 @@ yPred = []
 # change the file name to model_naive_bayes.pkl if you want to use the Naive Bayes model
 # Load the trained model
 try:
-    model = joblib.load('model_naive_bayes.pkl')
+    model = joblib.load('model_svm.pkl')
 except FileNotFoundError:
     print("Error: The model file was not found. Please train the model first.")
     exit(1)
