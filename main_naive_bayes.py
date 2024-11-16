@@ -7,7 +7,7 @@ from machine_learning import machineLearningNaiveBayes
 # dataSet = loadDataTraining(filePathDataSet)
 
 # Load the training data with database connection
-dataSet = loadDataTraining('')
+dataSet = loadDataTraining()
 print(f"Jumlah Data Set Flatten: {len(dataSet)}")
 
 xTrain, xTest, yTrain, yTest, vectorizer = dataProcessing(dataSet)
