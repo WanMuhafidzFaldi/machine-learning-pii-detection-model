@@ -22,6 +22,8 @@ def loadDataTraining(filePath):
                     })
     else:
         data = db_connection.loadDataUji()
+        dataSetScore = [db_connection.countDataUjiScore(0), db_connection.countDataUjiScore(1), db_connection.countDataUjiScore(2)]
+        maxCountDataSetScore = max(dataSetScore)
 
         dataSet = []
         x = 0
@@ -29,7 +31,7 @@ def loadDataTraining(filePath):
             keyValueLabels = entry.get('keyValueLabels', [])
             x += 1
             for kv in keyValueLabels:
-                if len(kv) >= 3:
+                if len(kv) >= 3 and len(dataSet) <= maxCountDataSetScore:
                     responseData = {kv[0]: kv[1]}
                     scoringData = kv[2]
                     dataSet.append({

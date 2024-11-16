@@ -15,3 +15,21 @@ def loadDataUji():
     data = collection.find({})
 
     return data
+
+def countDataUjiScore(score):
+    db = getDbConnection()
+    collection = db['logs']
+    
+    pipeline = [
+        { '$unwind': '$keyValueLabels' },
+        { '$match': { 'keyValueLabels': { '$in': [score] } } },
+        { '$count': 'count' }
+    ]
+    
+    result = collection.aggregate(pipeline)
+    count_result = list(result)
+    
+    if count_result:
+        return count_result[0]['count']
+    else:
+        return 0
