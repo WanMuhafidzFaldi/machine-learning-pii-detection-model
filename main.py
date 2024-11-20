@@ -1,4 +1,4 @@
-from data_uji import loadDataTest
+import data_uji
 from predict_pii import predictPii
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, confusion_matrix
 import joblib
@@ -24,18 +24,27 @@ except FileNotFoundError:
     exit(1)
 
 filePathDataTest = 'datauji1.json'
-dataTest = loadDataTest(filePathDataTest)
+dataTest = data_uji.loadDataTestFlatten(filePathDataTest)
 for data in dataTest:
     print("Data Uji: ", data['responseData'])
     print("Scoring Seharusnya: ", data['scoringData'])
-    predict, textReport = predictPii(model, vectorizer, data['responseData'])  # Output: Does not contain PII
-    print("Hasil Prediksi: ", predict)
+
+    # Collect all predict scores
+    predict_scores = []
+    for dataFlatten in data['dataFlatten']:
+        predict, textReport = predictPii(model, vectorizer, dataFlatten['responseDataFlatten']) # Output: Does not contain PII
+        predict_scores.append(predict)
+
+    # Get the maximum predict score
+    maxPredict = max(predict_scores)
+
+    print("Hasil Prediksi: ", maxPredict)
     print("Text Report: ", textReport)
     print("\n")
 
     # Simpan hasil prediksi dan label sebenarnya
     yTrue.append(data['scoringData'])
-    yPred.append(predict)
+    yPred.append(maxPredict)
 
 # Hitung metrik-metrik
 totalData = len(dataTest)  
